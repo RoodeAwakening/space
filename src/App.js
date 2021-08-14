@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 
 import Main from "./Components/Main/Main";
-import MarsRoverPhotos from "./Components/Category/MarsRoverPhotos";
+import MarsRoverPhotos from "./Components/Category/MarsRoverPhotos/MarsRoverPhotos";
 
 function App() {
   return (
