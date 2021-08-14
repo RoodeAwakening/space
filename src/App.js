@@ -1,13 +1,22 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 
-import Category from "./Components/Category/Category";
+
 import Main from "./Components/Main/Main";
+import MarsRoverPhotos from "./Components/Category/MarsRoverPhotos";
 
 function App() {
   return (
-   <Main />
+    <>
+    <BrowserRouter>
+      <Switch>
+      <Route path="/" component={Main} exact={true} />
+      
+      <Route path="/MarsRover" component={MarsRoverPhotos} exact={true}/>
+      </Switch>
+    </BrowserRouter>
+    </>
   );
 }
 
