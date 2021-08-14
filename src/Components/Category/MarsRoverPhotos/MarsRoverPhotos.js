@@ -37,6 +37,19 @@ export default function MarsRoverPhotos(){
 
 
 // opportunity photos
+ const [opportunityFHAZ, setOpportunityFHAZ] = useState([]);
+ const [opportunityFHAZState, setOpportunityFHAZState] = useState(false);
+ const [opportunityRHAZ, setOpportunityRHAZ] = useState([]);
+ const [opportunityRHAZState, setOpportunityRHAZState] = useState(false);
+ const [opportunityNAVCAM, setOpportunityNAVCAM] = useState([]);
+ const [opportunityNAVCAMState, setOpportunityNAVCAMState] = useState(false);
+ const [opportunityPANCAM, setOpportunityPANCAM] = useState([]);
+ const [opportunityPANCAMState, setOpportunityPANCAMState] = useState(false);
+ const [opportunityMINITES, setOpportunityMINITES] = useState([]);
+ const [opportunityMINITESState, setOpportunityMINITESState] = useState(false);
+ const [opportunityToday, setOpportunityToday] = useState([]);
+ const [opportunityTodayState, setOpportunityTodayState] = useState(false);
+
 // spirit photos
 
 
@@ -82,12 +95,32 @@ useEffect(() => {
 
 
     // opportunity photos
+    const opportunityFHAZresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&camera=fhaz&api_key=${API_KEY}`)
+    const opportunityFHAZ = await opportunityFHAZresponse.json();
+    const opportunityRHAZresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&camera=rhaz&api_key=${API_KEY}`)
+    const opportunityRHAZ = await opportunityRHAZresponse.json();
+    const opportunityNAVCAMresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&camera=navcam&api_key=${API_KEY}`)
+    const opportunityNAVCAM = await opportunityNAVCAMresponse.json();
+    const opportunityPANCAMresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&camera=pancam&api_key=${API_KEY}`)
+    const opportunityPANCAM = await opportunityPANCAMresponse.json();
+    const opportunityMINITESresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&camera=minites&api_key=${API_KEY}`)
+    const opportunityMINITES = await opportunityMINITESresponse.json();
+    const opportunityTodayResponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?earth_date=${year}-${month}-${day}&api_key=${API_KEY}`)
+    const opportunityToday = await opportunityTodayResponse.json()
+    setOpportunityFHAZ(opportunityFHAZ.photos);
+    setOpportunityRHAZ(opportunityRHAZ.photos);
+    setOpportunityNAVCAM(opportunityNAVCAM.photos);
+    setOpportunityPANCAM(opportunityPANCAM.photos);
+    setOpportunityMINITES(opportunityMINITES.photos);
+    setOpportunityToday(opportunityToday.photos);
+
+
     // spirit photos
 
 
 
   }
-  getMarsRoverPhtotos();
+  // getMarsRoverPhtotos();
 }, []);
 
 
@@ -122,7 +155,7 @@ useEffect(() => {
         <button onClick={() => setCuriosityMARDIState(!curiosityMARDIState,setCuriosityFHAZState(false), setCuriosityRHAZState(false),setCuriosityMASTState(false),setCuriosityCHEMCAMState(false),setCuriosityMAHLIState(false),setCuriosityNAVCAMState(false))}>	Mars Descent Imager</button>
         <button onClick={() => setCuriosityNAVCAMState(!curiosityNAVCAMState,setCuriosityFHAZState(false), setCuriosityRHAZState(false),setCuriosityMASTState(false),setCuriosityCHEMCAMState(false),setCuriosityMAHLIState(false),setCuriosityMARDIState(false))}>Navigation Camera</button>
         <button onClick={() => setCuriosityTodayState(!curiosityTodayState,setCuriosityFHAZState(false), setCuriosityRHAZState(false),setCuriosityMASTState(false),setCuriosityCHEMCAMState(false),setCuriosityMAHLIState(false),setCuriosityMARDIState(false),setCuriosityNAVCAMState(false))}>Today's Photos</button>
-        </div>}
+        
         {/* curiosityFHAZState */}
       {curiosityFHAZState && <div className="mars-rover-photos-buttons">
         <h2>Front Hazard Avoidance Camera</h2>
@@ -224,7 +257,7 @@ useEffect(() => {
         {curosiotyToday.length === 0 && <p>No photos for today.</p>}
         </div>}
 
-
+        </div>}
 
 
 
@@ -232,11 +265,96 @@ useEffect(() => {
     {/* opportunity */}
      {opportunity && <div className="mars-rover-photos-buttons">
         <h2>opportunity</h2>
-        <button >Front Hazard Avoidance Camera</button>
-        <button >Rear Hazard Avoidance Camera	</button>
-        <button >Navigation Camera</button>
-        <button >Panoramic Camera	</button>
-        <button >Miniature Thermal Emission Spectrometer (Mini-TES)</button>
+        <button onClick={() => setOpportunityFHAZState(!opportunityFHAZState,setOpportunityRHAZState(false), setOpportunityNAVCAMState(false),setOpportunityPANCAMState(false),setOpportunityMINITESState(false),setOpportunityTodayState(false))}>Front Hazard Avoidance Camera</button>
+        <button onClick={() => setOpportunityRHAZState(!opportunityRHAZState,setOpportunityFHAZState(false), setOpportunityNAVCAMState(false),setOpportunityPANCAMState(false),setOpportunityMINITESState(false),setOpportunityTodayState(false))}>Rear Hazard Avoidance Camera</button>
+        <button onClick={() => setOpportunityNAVCAMState(!opportunityNAVCAMState,setOpportunityFHAZState(false), setOpportunityRHAZState(false),setOpportunityPANCAMState(false),setOpportunityMINITESState(false),setOpportunityTodayState(false))}>Navigation Camera</button>
+        <button onClick={() => setOpportunityPANCAMState(!opportunityPANCAMState,setOpportunityFHAZState(false), setOpportunityRHAZState(false),setOpportunityNAVCAMState(false),setOpportunityMINITESState(false),setOpportunityTodayState(false))}>Panoramic Camera</button>
+        <button onClick={() => setOpportunityMINITESState(!opportunityMINITESState,setOpportunityFHAZState(false), setOpportunityRHAZState(false),setOpportunityNAVCAMState(false),setOpportunityPANCAMState(false),setOpportunityTodayState(false))}>Miniature Thermal Emission Spectrometer</button>
+        <button onClick={() => setOpportunityTodayState(!opportunityTodayState,setOpportunityFHAZState(false), setOpportunityRHAZState(false),setOpportunityNAVCAMState(false),setOpportunityPANCAMState(false),setOpportunityMINITESState(false))}>Today's Images</button>
+
+        {/* opportunityFHAZState */}
+        {opportunityFHAZState && <div className="mars-rover-photos-buttons">
+          <h2>Front Hazard Avoidance Camera</h2>
+          <ul>
+            {opportunityFHAZ.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* opportunityRHAZState */}
+        {opportunityRHAZState && <div className="mars-rover-photos-buttons">
+          <h2>Rear Hazard Avoidance Camera</h2>
+          <ul>
+            {opportunityRHAZ.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* opportunityNAVCAMState */}
+        {opportunityNAVCAMState && <div className="mars-rover-photos-buttons">
+          <h2>Navigation Camera</h2>
+          <ul>
+            {opportunityNAVCAM.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* opportunityPANCAMState */}
+        {opportunityPANCAMState && <div className="mars-rover-photos-buttons">
+          <h2>Panoramic Camera</h2>
+          <ul>
+            {opportunityPANCAM.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* opportunityMINITESState */}
+        {opportunityMINITESState && <div className="mars-rover-photos-buttons">
+          <h2>Miniature Thermal Emission Spectrometer</h2>
+          <ul>
+            {opportunityMINITES.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* opportunityTodayState */}
+        {opportunityTodayState && <div className="mars-rover-photos-buttons">
+          <h2>Today's Images</h2>
+          <ul>
+            {opportunityToday.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          {opportunityToday.length === 0 && <p>No photos for today.</p>}
+          </div>}
+     
+ 
+
+
         </div>}
     {/* spirit */}
      {spirit && <div className="mars-rover-photos-buttons">
