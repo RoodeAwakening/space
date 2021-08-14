@@ -51,6 +51,18 @@ export default function MarsRoverPhotos(){
  const [opportunityTodayState, setOpportunityTodayState] = useState(false);
 
 // spirit photos
+const [spiritFHAZ, setSpiritFHAZ] = useState([]);
+const [spiritFHAZState, setSpiritFHAZState] = useState(false);
+const [spiritRHAZ, setSpiritRHAZ] = useState([]);
+const [spiritRHAZState, setSpiritRHAZState] = useState(false);
+const [spiritNAVCAM, setSpiritNAVCAM] = useState([]);
+const [spiritNAVCAMState, setSpiritNAVCAMState] = useState(false);
+const [spiritPANCAM, setSpiritPANCAM] = useState([]);
+const [spiritPANCAMState, setSpiritPANCAMState] = useState(false);
+const [spiritMINITES, setSpiritMINITES] = useState([]);
+const [spiritMINITESState, setSpiritMINITESState] = useState(false);
+const [spiritToday, setSpiritToday] = useState([]);
+const [spiritTodayState, setSpiritTodayState] = useState(false);
 
 
 
@@ -116,6 +128,24 @@ useEffect(() => {
 
 
     // spirit photos
+    const spiritFHAZresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&camera=fhaz&api_key=${API_KEY}`)
+    const spiritFHAZ = await spiritFHAZresponse.json();
+    const spiritRHAZresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&camera=rhaz&api_key=${API_KEY}`)
+    const spiritRHAZ = await spiritRHAZresponse.json();
+    const spiritNAVCAMresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&camera=navcam&api_key=${API_KEY}`)
+    const spiritNAVCAM = await spiritNAVCAMresponse.json();
+    const spiritPANCAMresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&camera=pancam&api_key=${API_KEY}`)
+    const spiritPANCAM = await spiritPANCAMresponse.json();
+    const spiritMINITESresponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?sol=1000&camera=minites&api_key=${API_KEY}`)
+    const spiritMINITES = await spiritMINITESresponse.json();
+    const spiritTodayResponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/photos?earth_date=${year}-${month}-${day}&api_key=${API_KEY}`)
+    const spiritToday = await spiritTodayResponse.json()
+    setSpiritFHAZ(spiritFHAZ.photos);
+    setSpiritRHAZ(spiritRHAZ.photos);
+    setSpiritNAVCAM(spiritNAVCAM.photos);
+    setSpiritPANCAM(spiritPANCAM.photos);
+    setSpiritMINITES(spiritMINITES.photos);
+    setSpiritToday(spiritToday.photos);
 
 
 
@@ -359,11 +389,92 @@ useEffect(() => {
     {/* spirit */}
      {spirit && <div className="mars-rover-photos-buttons">
         <h2>spirit</h2>
-        <button >Front Hazard Avoidance Camera</button>
-        <button >Rear Hazard Avoidance Camera	</button>
-        <button >Navigation Camera</button>
-        <button >Panoramic Camera	</button>
-        <button >Miniature Thermal Emission Spectrometer (Mini-TES)</button>
+        <button onClick={() => setSpiritFHAZState(!spiritFHAZState,setSpiritRHAZState(false), setSpiritNAVCAMState(false),setSpiritPANCAMState(false),setSpiritMINITESState(false),setSpiritTodayState(false))}>Front Hazard Avoidance Camera</button>
+        <button onClick={() => setSpiritRHAZState(!spiritRHAZState,setSpiritFHAZState(false), setSpiritNAVCAMState(false),setSpiritPANCAMState(false),setSpiritMINITESState(false),setSpiritTodayState(false))}>Rear Hazard Avoidance Camera</button>
+        <button onClick={() => setSpiritNAVCAMState(!spiritNAVCAMState,setSpiritFHAZState(false), setSpiritRHAZState(false),setSpiritPANCAMState(false),setSpiritMINITESState(false),setSpiritTodayState(false))}>Navigation Camera</button>
+        <button onClick={() => setSpiritPANCAMState(!spiritPANCAMState,setSpiritFHAZState(false), setSpiritRHAZState(false),setSpiritNAVCAMState(false),setSpiritMINITESState(false),setSpiritTodayState(false))}>Panoramic Camera</button>
+        <button onClick={() => setSpiritMINITESState(!spiritMINITESState,setSpiritFHAZState(false), setSpiritRHAZState(false),setSpiritNAVCAMState(false),setSpiritPANCAMState(false),setSpiritTodayState(false))}>Miniature Thermal Emission Spectrometer</button>
+        <button onClick={() => setSpiritTodayState(!spiritTodayState,setSpiritFHAZState(false), setSpiritRHAZState(false),setSpiritNAVCAMState(false),setSpiritPANCAMState(false),setSpiritMINITESState(false))}>Today's Images</button>
+        {/* spiritFHAZState */}
+        {spiritFHAZState && <div className="mars-rover-photos-buttons">
+          <h2>Front Hazard Avoidance Camera</h2>
+          <ul>
+            {spiritFHAZ.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* spiritRHAZState */}
+        {spiritRHAZState && <div className="mars-rover-photos-buttons">
+          <h2>Rear Hazard Avoidance Camera</h2>
+          <ul>
+            {spiritRHAZ.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* spiritNAVCAMState */}
+        {spiritNAVCAMState && <div className="mars-rover-photos-buttons">
+          <h2>Navigation Camera</h2>
+          <ul>
+            {spiritNAVCAM.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* spiritPANCAMState */}
+        {spiritPANCAMState && <div className="mars-rover-photos-buttons">
+          <h2>Panoramic Camera</h2>
+          <ul>
+            {spiritPANCAM.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* spiritMINITESState */}
+        {spiritMINITESState && <div className="mars-rover-photos-buttons">
+          <h2>Miniature Thermal Emission Spectrometer</h2>
+          <ul>
+            {spiritMINITES.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          </div>}
+          {/* spiritTodayState */}
+        {spiritTodayState && <div className="mars-rover-photos-buttons">
+          <h2>Today's Images</h2>
+          <ul>
+            {spiritToday.map((photo, index) => {
+              return (
+                <li key={index}>
+                  <img src={photo.img_src} alt={photo.img_src}/>
+                </li>
+              )
+            })}
+          </ul>
+          {spiritToday.length === 0 && <p>No photos for today.</p>}
+          </div>}
+          
         </div>}
 
       </div>
