@@ -1,0 +1,13 @@
+.mars-rover-photos-group{
+  /* make images smaller with a border */
+  border: 1px solid #ccc;
+  border-radius: 5px solid black;
+  width: 20em;
+  max-height: auto;
+  padding: 0.5em;
+  margin: 0.5em;
+  
+  
+
+
+}
