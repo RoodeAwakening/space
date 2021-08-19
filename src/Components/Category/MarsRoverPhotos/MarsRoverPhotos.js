@@ -500,6 +500,7 @@ export default function MarsRoverPhotos() {
           </button>
           <button
             onClick={() =>
+            
               setOpportunityNAVCAMState(
                 !opportunityNAVCAMState,
                 setOpportunityFHAZState(false),
